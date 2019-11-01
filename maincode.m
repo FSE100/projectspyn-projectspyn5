@@ -1,4 +1,3 @@
-
 global key
 InitKeyboard();
 
@@ -51,4 +50,3 @@ while 1
     
 end
 CloseKeyboard(); 
-     
