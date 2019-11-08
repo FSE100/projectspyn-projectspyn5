@@ -30,13 +30,13 @@ while 1
             
         case 'l'
             disp('l Key Pressed!');
-            brick.MoveMotor('C', 10);
+            brick.MoveMotor('C', 15);
             pause (.25);
             brick.StopMotor('C');
             
         case 'd'
             disp('d Key Pressed!');
-            brick.MoveMotor('C', -10);
+            brick.MoveMotor('C', -8);
             pause (.25);
             brick.StopMotor('C');
             
