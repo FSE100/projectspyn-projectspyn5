@@ -13,20 +13,30 @@ while 1
     leftdistance = 0;
     brick.MoveMotor('A', -35);
     brick.MoveMotor('B', -30); 
+    
     if color == 5 %red
+        brick.StopAllMotors();
+        pause(5);
+        brick.MoveMotor ('A', -30);
+        brick.MoveMotor('B', -35)
+        color = brick.ColorCode(3);
         disp(color);
         brick.beep; 
-        pause(5);
+       
     end
     if color == 3 %blue
+        brick.StopAllMotors();
+        color = brick.ColorCode(3);
         disp(color);
         brick.beep; 
-        brick.StopAllMotors();
+        
     end
     if color == 3 %green
+        brick.StopAllMotors();
+        color = brick.ColorCode(3);
         disp(color);
         brick.beep; 
-        brick.StopAllMotors();
+        
     end
     
     if distance > 35
@@ -42,7 +52,7 @@ while 1
         rightdistance = brick.UltrasonicDist(2);
         disp(rightdistance);
         brick.MoveMotor('A', -30); %turning left 180
-        pause(3.9);
+        pause(3.8);
         brick.StopMotor('A', 3);
         leftdistance = brick.UltrasonicDist(2);
         disp(leftdistance);
@@ -53,7 +63,7 @@ while 1
     end 
     if rightdistance > leftdistance;
         brick.MoveMotor('B', -30);
-        pause(3.3);
+        pause(3.7);
         brick.StopMotor('B', 3); 
         brick.MoveMotor('A', -35);
         brick.MoveMotor('B', -30);
