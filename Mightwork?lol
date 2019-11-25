@@ -1,0 +1,67 @@
+% global key
+% InitKeyboard();
+
+rightdistance = 0;
+leftdistance = 0;
+brick.SetColorMode(3, 2);
+%color = brick.ColorCode(3);
+%disp(color);
+distance = brick.UltrasonicDist(2);
+brick.MoveMotor('A', -35);
+brick.MoveMotor('B', -35.3); 
+
+while 1 
+color = brick.ColorCode(3);
+disp(color);
+    if color ==5 %red
+        brick.beep;
+        brick.StopAllMotors();
+        pause(4);
+    
+    elseif color ==3 %blue/green
+        brick.beep; 
+        brick.StopAllMotors();
+        maincode; 
+    
+    else
+    
+    if distance > 35
+        distance = brick.UltrasonicDist(2);
+        disp(distance);
+        brick.MoveMotor ('A', -35);
+        brick.MoveMotor('B', -35.3);
+    
+    else %distance < 35
+        rightdistance = brick.UltrasonicDist(2);
+        disp(rightdistance);
+        brick.StopMotor('A');
+        brick.MoveMotor('B', -30); %turning right 90
+        pause(2.3);
+        brick.StopMotor('B');
+        leftdistance = brick.UltrasonicDist(2);
+        disp(leftdistance);
+        brick.StopMotor('B');
+        brick.MoveMotor('A', -30); %turning left 180
+        pause(3.9);
+        brick.StopMotor('A');
+        
+    end
+end
+    
+    if rightdistance < 20 && leftdistance < 20
+        brick.MoveMotor('A', -30);          %turn left 90*
+        pause(2.3);
+     
+    elseif rightdistance > leftdistance
+        brick.MoveMotor('B', -30);          %turn 180* right 
+        pause(3.9);
+        brick.StopMotor('B'); 
+        brick.MoveMotor('A', -35);
+        brick.MoveMotor('B', -35.3);
+       
+    else %leftdistance > rightdistance
+        brick.MoveMotor('A', -35);
+        brick.MoveMotor('B', -35.3); 
+
+    end
+end
