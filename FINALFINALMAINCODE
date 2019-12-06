@@ -1,0 +1,81 @@
+% global key
+% InitKeyboard();
+
+rightdistance = 0;
+leftdistance = 0;
+
+while 1
+    brick.SetColorMode(3, 2);
+    color = brick.ColorCode(3);
+    disp(color);
+    distance = brick.UltrasonicDist(2);
+    rightdistance = 0;
+    leftdistance = 0;
+    brick.MoveMotor('A', -35);
+    brick.MoveMotor('B', -36);  
+    
+    if distance > 35
+        brick.MoveMotor ('A', -35);
+        brick.MoveMotor('B', -36)
+        distance = brick.UltrasonicDist(2);
+        disp(distance);
+    else %distance < 30
+        brick.StopMotor('A', 30);
+        brick.MoveMotor('B', -30); %turning right 90
+        pause(2.3);
+        brick.StopMotor('B', 3);
+        rightdistance = brick.UltrasonicDist(2);
+        disp(rightdistance);
+        brick.MoveMotor('A', -30.5); %turning left 180
+        pause(3.6);
+        brick.StopMotor('A', 3);
+        leftdistance = brick.UltrasonicDist(2);
+        disp(leftdistance);
+    end
+    if rightdistance&&leftdistance < 20;
+        brick.MoveMotor('A', -30);
+        pause(2.2);
+    end 
+    if rightdistance > leftdistance;
+        brick.MoveMotor('B', -30);
+        pause(3.7);
+        brick.StopMotor('B', 3); 
+        brick.MoveMotor('A', -35);
+        brick.MoveMotor('B', -36);
+        
+    %else 
+        %brick.MoveMotor('A', -35);
+        %brick.MoveMotor('B', -30); 
+
+    end
+     if color == 5 %red
+        brick.StopAllMotors();
+        pause(4);
+        brick.MoveMotor ('A', -35);
+        brick.MoveMotor('B', -36)
+        color = brick.ColorCode(3);
+        disp(color);
+        brick.beep; 
+    end   
+    
+    if color == 2 %blue
+        brick.StopAllMotors();
+        pause(4);
+        color = brick.ColorCode(3);
+        disp(color);
+        brick.beep; 
+        manual;
+    else
+        maincode;
+    end
+    if color == 3 %green
+        brick.StopAllMotors();
+        pause(4)
+        color = brick.ColorCode(3);
+        disp(color);
+        brick.beep; 
+        manual;
+    else
+        maincode;     
+    end
+end
